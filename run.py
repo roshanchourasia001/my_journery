@@ -3,14 +3,19 @@ import os
 from datetime import datetime, timedelta
 
 log_file = "log.txt"
-start_date = datetime.now() - timedelta(days=365)
 
-for i in range(365):
-    day = start_date + timedelta(days=i)
-    date_str = day.strftime("%Y-%m-%d")
+# Start from Jan 1 2025
+start_date = datetime(2025, 1, 1)
+end_date = datetime(2026, 6, 19)
+
+current = start_date
+i = 1
+
+while current <= end_date:
+    date_str = current.strftime("%Y-%m-%d")
 
     with open(log_file, "a") as f:
-        f.write(f"commit on {date_str}\n")
+        f.write(f"commit on {date_str} - {i}\n")
 
     subprocess.run(["git", "add", "."])
 
@@ -19,8 +24,11 @@ for i in range(365):
     env["GIT_COMMITTER_DATE"] = f"{date_str} 12:00:00"
 
     subprocess.run(
-        ["git", "commit", "-m", f"day {i+1}"],
+        ["git", "commit", "-m", f"day {i}"],
         env=env
     )
+
+    current += timedelta(days=1)
+    i += 1
 
 print("All done! Now run: git push -u origin main")
