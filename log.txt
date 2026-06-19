@@ -1,1 +1,1 @@
-api endpoints updated
+ui improvements added
