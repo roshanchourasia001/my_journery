@@ -1,1 +1,1 @@
-ui improvements added
+performance optimized
