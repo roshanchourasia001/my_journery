@@ -1,1 +1,1 @@
-settings page fixed
+api endpoints updated
